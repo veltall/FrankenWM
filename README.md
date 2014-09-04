@@ -13,40 +13,63 @@ adding pieces from other WMs (hence the name) and porting all sorts of stuff
 from Xlib to XCB. Many of the original monsterwm patches have been ported as
 well.
 
-All settings must be set at compile time by editing `config.h` and it does not
-feature a status bar (but supports leaving preconfigured space for one). Refer
-to the [monsterwm docs][mwmdocs] for examples on how to parse the output to use
-it in a status bar.
-
-  [mwmdocs]: https://github.com/c00kiemon5ter/monsterwm#panel---statusbar
-
 Installation
 ------------
 
-You need xcb and xcb-utils then, copy `config.def.h` as `config.h` and edit to
-suit your needs.  Build and install.
+First clone this repository to your local machine
 
+    $ git clone https://github.com/sulami/FrankenWM.git
+
+You need xcb and xcb-utils so refer to your distro wiki
+to install them. For instance, he packages in Arch Linux 
+needed for example would be `libxcb` `xcb-util` `xcb-util-wm`, 
+and `xcb-util-keysyms`
+
+Then, copy `config.def.h` as `config.h` 
+
+    $ cd /path/to/FrankenWM
     $ cp config.def.h config.h
+
+and edit to suit your needs.  Build and install.
+
     $ $EDITOR config.h
     $ make
-    # make clean install
+    $ sudo make clean install
 
-The packages in Arch Linux needed for example would be
-`libxcb` `xcb-util` `xcb-util-wm` `xcb-util-keysyms`
+
 
 Configuration
 -------------
 
-Configuration is done by editing `config.h` before compiling FrankenWM. If you
-want an advanced configuration example, you can have a look at [my personal
-config][config].
+FrankenWM does not support dynamic configuration (re-)loading.
+Configuration is done by editing `config.h` before (re-)compiling FrankenWM with 
+`sudo make && sudo make clean install`.
+If you want an advanced configuration example, you can have a look at [my personal config][config].
 
   [config]: https://github.com/sulami/dotfiles/blob/master/frankenwm.config.h
+  
+For a list of keynames available for binding, refer to your X config file:
 
+    $ $EDITOR /usr/include/X11/keysymdef.h
+  
+Status Bar
+----------
+
+FrankenWM does not feature a status bar. Like MonsterWM, it leaves a preconfigured
+amount of space for one. Refer to the [monsterwm docs][mwmdocs] for examples 
+on how to parse the output to use it in a status bar of choice.
+
+  [mwmdocs]: https://github.com/c00kiemon5ter/monsterwm#panel---statusbar
+  
+Also refer to the ArchWiki's article on [Bar-aint-recursive][arch-bar] for a
+beginner-friendly introduction to configuring stdout status bars.
+
+  [arch-bar]: https://wiki.archlinux.org/index.php/Bar-aint-recursive
+  
 Usage
 -----
 
-I took the time to write a really nice and pretty manpage (man frankenwm, or
+I took the time to write a really nice and pretty manpage (`man frankenwm`, or
 man ./[frankenwm.1][man] if you want to read it before installing) covering the
 tiling modes and all of the default shortcuts.
 
